@@ -27,13 +27,13 @@ pub mod bonk_drop {
     }
 
     pub fn drop_bonk(ctx: Context<DropBonk>, amount: u64) -> Result<()> {
-        let amount_parsed = ((amount as f64) * 1e5) as u64; //Bonk is a 5 decimal token
-        let burn_amount = amount_parsed / 2; // 50% burned
-        let donate_amount = amount_parsed / 2; //50% to treasury wallet to be donated
+        let amount_parsed = ((amount as f64) * 1e5) as f64; //Bonk is a 5 decimal token
+        let burn_amount = amount_parsed / 2 as f64; // 50% burned
+        let donate_amount = amount_parsed / 2 as f64; //50% to treasury wallet to be donated
         let user_bonk_account = &mut ctx.accounts.drop_account;
         user_bonk_account.total_dropped += amount;
-        token::transfer(ctx.accounts.transfer_ctx(), donate_amount)?;
-        token::burn(ctx.accounts.burn_token_ctx(), burn_amount)?;
+        token::transfer(ctx.accounts.transfer_ctx(), donate_amount as u64)?;
+        token::burn(ctx.accounts.burn_token_ctx(), burn_amount as u64)?;
         Ok(())
     }
 
@@ -95,8 +95,6 @@ impl<'info> DropBonk<'info> {
             },
         )
     }
-}
-impl<'info> DropBonk<'info> {
     pub fn transfer_ctx(&self) -> CpiContext<'_, '_, '_, 'info, Transfer<'info>> {
         CpiContext::new(
             self.token_program.to_account_info(),
