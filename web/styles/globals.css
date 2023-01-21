@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-accentYellow bg-complementaryBlue selection:bg-complementaryBlue transition-all ease-in-out;
+    @apply text-sm md:text-base;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold text-primaryOrange;
+  }
+
+  h1 {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h2 {
+    @apply text-xl sm:text-2xl;
+  }
+
+  .btn-regular {
+    @apply btn btn-sm md:btn-md lg:btn-lg text-white border-none hover:bg-complementaryPink bg-primaryOrange;
+  }
+}

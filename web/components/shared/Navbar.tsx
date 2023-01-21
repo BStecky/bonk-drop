@@ -7,7 +7,7 @@ import WalletMultiButtonStyled from "./WalletMultiButtonStyled";
 
 const Navbar: FC = () => {
   return (
-    <div className="rounded-md bg-gray-50">
+    <div className="bg-black/20 border-y-2 border-y-accentYellow">
       <div className="p-4">
         <WalletMultiButtonStyled />
       </div>

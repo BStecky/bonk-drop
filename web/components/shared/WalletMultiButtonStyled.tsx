@@ -27,7 +27,7 @@ const WalletMultiButtonStyled: FC<WalletMultiButtonStyledProps> = ({
           />
         </svg>
       }
-      className={`wallet-adapter-button-trigger !btn-sm !btn-accent hover:!bg-[#7b5fc7] hover:!scale-105 !text-sm flex items-center !rounded-md ${className}`}
+      className={`wallet-adapter-button-trigger !btn-sm !bg-primaryOrange hover:!bg-complementaryPink hover:!scale-105 !text-sm flex items-center !rounded-md ${className}`}
       style={{ padding: 20 }}
     />
   );
