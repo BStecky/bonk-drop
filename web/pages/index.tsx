@@ -12,6 +12,7 @@ import Footer from "../components/shared/Footer";
 import WalletMultiButtonStyled from "@/components/shared/WalletMultiButtonStyled";
 import Hero from "@/components/Hero";
 import Info from "@/components/Info";
+import Leaderboard from "@/components/Leaderboard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Info />
+      <Leaderboard />
     </main>
   );
 }

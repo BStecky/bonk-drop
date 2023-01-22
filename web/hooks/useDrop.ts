@@ -39,13 +39,14 @@ type WebState = {
   treasury: PublicKey;
   treasuryAddress: PublicKey;
   bonkToken: PublicKey;
+  dropAccountList: DropAccount[];
 };
 interface UseDrop {
   state: WebState;
   initState: (wallet: AnchorWallet) => Promise<boolean>;
   initAccount: () => Promise<boolean>;
   fetchAccount: () => Promise<DropAccount | any>;
-  enterDrop: () => Promise<boolean>;
+  enterDrop: (dropAmount: number) => Promise<boolean>;
 }
 const useDrop = create<UseDrop>((set, get) => ({
   state: {} as WebState,
@@ -80,6 +81,30 @@ const useDrop = create<UseDrop>((set, get) => ({
       [wallet.publicKey.toBuffer(), Buffer.from("user")],
       program.programId
     );
+
+    const dropAccounts = await program.account.dropAccount.all([]);
+    let dropAccountList: DropAccount[] = dropAccounts
+      .sort(
+        (a, b) =>
+          (b.account.totalDropped as any) - (a.account.totalDropped as any)
+      )
+      .map((dropAccount) => ({
+        authority: dropAccount.account.authority,
+        twitter: dropAccount.account.twitter,
+        discord: dropAccount.account.discord,
+        droppedAmount: dropAccount.account.totalDropped,
+      }));
+
+    // for (let i = 0; i < dropAccounts.length; i++) {
+    //   let account: DropAccount = {
+    //     authority: dropAccounts[i].account.authority,
+    //     twitter: dropAccounts[i].account.twitter,
+    //     discord: dropAccounts[i].account.discord,
+    //     droppedAmount: dropAccounts[i].account.totalDropped,
+    //   };
+    //   dropAccountList.push(account);
+    // }
+    // dropAccountList.sort((a, b) => b.droppedAmount - a.droppedAmount);
     // Mainnet token
     // const bonkToken = new PublicKey(
     //   "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
@@ -95,6 +120,7 @@ const useDrop = create<UseDrop>((set, get) => ({
         treasury,
         treasuryAddress,
         bonkToken,
+        dropAccountList,
       },
     });
     return true;
@@ -127,7 +153,7 @@ const useDrop = create<UseDrop>((set, get) => ({
       return false;
     }
   },
-  enterDrop: async () => {
+  enterDrop: async (dropAmount: number) => {
     const program = get().state.program;
     const user = get().state.user;
     const userDropAccount = get().state.dropAccount;
@@ -140,7 +166,7 @@ const useDrop = create<UseDrop>((set, get) => ({
     );
     try {
       const tx = await program.methods
-        .dropBonk(new BN(100))
+        .dropBonk(new BN(dropAmount))
         .accounts({
           treasury: treasury,
           treasuryAddress: treasuryAddress,
@@ -183,6 +209,7 @@ const useDrop = create<UseDrop>((set, get) => ({
       return false;
     }
   },
+  setLeaderboard: async () => {},
 }));
 
 export default useDrop;

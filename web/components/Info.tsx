@@ -6,11 +6,11 @@ const Info = () => {
   return (
     <section
       id="info"
-      className="w-full h-screen min-h-[1150px] min-w-[200px] overflow-auto m-auto max-w-[1240px]"
+      className="w-full h-screen min-h-[1250px] min-w-[380px] overflow-auto m-auto max-w-[1240px]"
     >
       <div className="bg-black/20 h-[80%] border-2 border-accentYellow rounded-xl py-10 m-10 grid grid-cols-1 md:grid-cols-2">
         <div className="flex flex-col justify-center w-full">
-          <div className="p-4 ml-10">
+          <div className="p-4 ml-2 md:ml-5 lg:ml-10">
             <h1>Who?</h1>
             <p className="pl-2 hover:text-complementaryPink">
               <a
@@ -22,7 +22,8 @@ const Info = () => {
               </a>
             </p>
           </div>
-          <div className="p-4 ml-10">
+          <div className="p-4 ml-2 md:ml-5 lg:ml-10">
+            {" "}
             <h1>What?</h1>
             <p className="pl-2">
               Bonk Drop is a project made during the January 2023 Solana
@@ -35,11 +36,13 @@ const Info = () => {
             </p>
           </div>
 
-          <div className="p-4 ml-10">
+          <div className="p-4 ml-2 md:ml-5 lg:ml-10">
+            {" "}
             <h1>Where?</h1>
             <p className="pl-2">Here at www.BonkDrop.com</p>
           </div>
-          <div className="p-4 ml-10">
+          <div className="p-4 ml-2 md:ml-5 lg:ml-10">
+            {" "}
             <h1>Why?</h1>
             <p className="pl-2">
               During the NFT bull run in 2022, there were a few projects that
@@ -49,7 +52,7 @@ const Info = () => {
               very mascot that helped get us here.
             </p>
           </div>
-          <div className="p-4 ml-10">
+          <div className="p-4 ml-2 md:ml-5 lg:ml-10">
             {" "}
             <h1>How?</h1>
             <p className="pl-2">

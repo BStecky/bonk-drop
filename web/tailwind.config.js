@@ -22,6 +22,31 @@ module.exports = {
 
         // ...
       },
+      daisyui: {
+        themes: [
+          {
+            mytheme: {
+              primary: "#e043be",
+
+              secondary: "#f4be53",
+
+              accent: "#3cd190",
+
+              neutral: "#1D1C26",
+
+              "base-100": "#2A2E3C",
+
+              info: "#96C0DF",
+
+              success: "#17734B",
+
+              warning: "#D5AF07",
+
+              error: "#F85C54",
+            },
+          },
+        ],
+      },
     },
   },
   plugins: [require("daisyui")],
