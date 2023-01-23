@@ -25,7 +25,9 @@ const Hero = () => {
   const fetchAccount = useDrop((state) => state?.fetchAccount);
   const [dropAmount, setDropAmount] = useState<number>(100000);
   const [gifUrl, setGifUrl] = useState("");
+  const [whaleGifUrl, setWhaleGifUrl] = useState("");
   const gf = new GiphyFetch(process.env.NEXT_PUBLIC_GIPHY_API_KEY as string);
+  const [whaleMode, setWhaleMode] = useState(false);
 
   async function updateAccount() {
     setAccountLoading(true);
@@ -51,12 +53,26 @@ const Hero = () => {
     });
   }
 
+  async function setWhaleGif() {
+    const offset = Math.floor(Math.random() * 10);
+    gf.search("whale", {
+      sort: "relevant",
+      lang: "es",
+      limit: 1,
+      type: "gifs",
+      offset: offset,
+    }).then((result) => {
+      setWhaleGifUrl(result.data[0].images.fixed_height.url);
+    });
+  }
+
   useEffect(() => {
     async function init() {
       if (wallet?.publicKey) {
         await initState(wallet);
         await updateAccount();
         await setGif();
+        await setWhaleGif();
         setWalletConnected(true);
         // gf.random({ tag: "shiba inu dog cute", type: "gifs" }).then((result) =>
         //   setGifUrl(result.data.images.fixed_height.url)
@@ -95,15 +111,56 @@ const Hero = () => {
                 <button className="btn-regular btn-sm">Learn More!</button>
               </Link>
             </div>
-            <input
-              type="range"
-              min="0"
-              max="1000000"
-              value={dropAmount}
-              className="range"
-              onChange={(e) => setDropAmount(Number(e.target.value))}
-            />
-            <p>Drop Amount: {dropAmount}</p>
+
+            {!whaleMode ? (
+              <input
+                type="range"
+                min="0"
+                max="1000000"
+                value={dropAmount}
+                className="range"
+                onChange={(e) => setDropAmount(Number(e.target.value))}
+              />
+            ) : (
+              <input
+                type="range"
+                min="1000000"
+                max="100000000"
+                value={dropAmount}
+                className="range"
+                onChange={(e) => setDropAmount(Number(e.target.value))}
+              />
+            )}
+
+            <div className="flex items-center text-center">
+              <h3 className="text-accentYellow p-2">
+                Drop Amount: {dropAmount.toLocaleString()}
+              </h3>
+              {!dropSuccess && (
+                <label className="swap swap-flip text-4xl p-1">
+                  <input type="checkbox" />
+                  <div
+                    className="swap-on"
+                    onClick={() => {
+                      setWhaleMode(false);
+                      setDropAmount(100000);
+                    }}
+                  >
+                    🐋
+                  </div>
+                  <div
+                    className="swap-off"
+                    onClick={() => {
+                      setWhaleMode(true);
+                      setDropAmount(1000000);
+                    }}
+                  >
+                    🐕
+                  </div>
+                </label>
+              )}
+            </div>
+
             <div className="py-4">
               {wallet?.publicKey ? (
                 <div>
@@ -119,24 +176,30 @@ const Hero = () => {
                     </button>
                   ) : (
                     <div>
-                      <button
-                        className="btn-regular"
-                        onClick={async () => {
-                          const result = await enterDrop(dropAmount);
-                          if (result) {
-                            setDropSuccess(true);
-                            setTimeout(() => {
-                              setDropSuccess(false);
-                              setGif();
-                            }, 15000); // 10 seconds
-                          }
-                        }}
-                      >
-                        Drop Bonk!
-                      </button>
+                      {!dropSuccess && (
+                        <button
+                          className="btn-regular"
+                          onClick={async () => {
+                            console.log("whale mode is: ", whaleMode);
+                            const result = await enterDrop(dropAmount);
+                            if (result) {
+                              setDropSuccess(true);
+                              setTimeout(() => {
+                                setDropSuccess(false);
+                                setGif();
+                                if (whaleMode) {
+                                  setWhaleGif();
+                                }
+                              }, 10000); // 15 seconds
+                            }
+                          }}
+                        >
+                          Drop Bonk!
+                        </button>
+                      )}
                     </div>
                   )}
-                  {dropSuccess && gifUrl && (
+                  {dropSuccess && gifUrl && !whaleMode ? (
                     <div>
                       <div className="p-2 flex flex-col">
                         <h3 className="text-accentYellow">
@@ -145,7 +208,7 @@ const Hero = () => {
                         <img
                           src={gifUrl}
                           className="w-full rounded-md border-2 border-accentYellow object-contain"
-                          alt="shiba inu dog"
+                          alt="shiba inu dog gif"
                         />
                       </div>
                       <a
@@ -157,6 +220,31 @@ const Hero = () => {
                         Share to help more dogs!
                       </a>
                     </div>
+                  ) : (
+                    dropSuccess &&
+                    gifUrl &&
+                    whaleMode && (
+                      <div>
+                        <div className="p-2 flex flex-col">
+                          <h3 className="text-accentYellow">
+                            WHALE MODE DETECTED
+                          </h3>
+                          <img
+                            src={whaleGifUrl}
+                            className="w-full rounded-md border-2 border-accentYellow object-contain"
+                            alt="gif of a whale"
+                          />
+                        </div>
+                        <a
+                          className="bg-primaryOrange text-white p-2 text-lg font-bold rounded-lg hover:bg-complementaryPink "
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://twitter.com/intent/tweet?text=I just dropped some $BONK and helped real dogs! 50 Percent Burned, 50 Percent donated to dog shelters. Try it yourself -> www.bonkdrop.com"
+                        >
+                          Share to help more dogs!
+                        </a>
+                      </div>
+                    )
                   )}
                 </div>
               ) : (

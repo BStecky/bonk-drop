@@ -24,7 +24,11 @@ const Leaderboard = () => {
                 dropAccount.droppedAmount > 0 ? (
                   <tr key={index}>
                     <td> {dropAccount.authority.toString()}</td>
-                    <td>{dropAccount.droppedAmount.toString()}</td>
+                    <td>
+                      {Number(
+                        dropAccount.droppedAmount.toString()
+                      ).toLocaleString()}
+                    </td>
                   </tr>
                 ) : null
               )
