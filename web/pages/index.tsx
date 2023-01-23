@@ -14,6 +14,7 @@ import Hero from "@/components/Hero";
 import Info from "@/components/Info";
 import { ToastContainer } from "react-toastify";
 import Leaderboard from "@/components/Leaderboard";
+import bonkLogo from "../public/assets/bonkLogo.jpeg";
 
 const inter = Inter({ subsets: ["latin"] });
 
