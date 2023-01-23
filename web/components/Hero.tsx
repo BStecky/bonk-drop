@@ -147,6 +147,7 @@ const Hero = () => {
                       <a
                         className="bg-primaryOrange text-white p-2 text-lg font-bold rounded-lg hover:bg-complementaryPink "
                         target="_blank"
+                        rel="noopener noreferrer"
                         href="https://twitter.com/intent/tweet?text=I just dropped some $BONK and helped real dogs! 50 Percent Burned, 50 Percent donated to dog shelters. Try it yourself -> www.bonkdrop.com"
                       >
                         Share to help more dogs!

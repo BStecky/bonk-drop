@@ -48,8 +48,8 @@ const Info = () => {
               During the NFT bull run in 2022, there were a few projects that
               used the hype to fundraise donations for charitible causes. Solana
               has really rallied around $BONK at the start of this year so I
-              think it's the perfect time to raise some money in support of the
-              very mascot that helped get us here, dogs.
+              think it&apos;s the perfect time to raise some money in support of
+              the very mascot that helped get us here, dogs.
             </p>
           </div>
           <div className="p-4 ml-2 md:ml-5 lg:ml-10">
