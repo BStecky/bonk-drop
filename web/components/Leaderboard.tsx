@@ -29,7 +29,7 @@ const Leaderboard = () => {
                 ) : null
               )
             ) : (
-              <p>Please connect your wallet to view the leaderboard!</p>
+              <td> Please connect your wallet to view the leaderboard!</td>
             )}
           </tbody>
         </table>

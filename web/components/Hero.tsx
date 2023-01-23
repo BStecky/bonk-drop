@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import WalletMultiButtonStyled from "@/components/shared/WalletMultiButtonStyled";
 import { GiphyFetch } from "@giphy/js-fetch-api";
+import bonkLogo from "../public/assets/bonkToken.jpeg";
 import { Gif } from "@giphy/react-components";
 import { off } from "process";
 
@@ -75,7 +76,7 @@ const Hero = () => {
           <div className="flex justify-center text-center w-full md:p-4">
             <Image
               className="rounded-[50%] m-auto w-[150px] h-[150px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px]"
-              src="/../public/assets/bonkToken.jpeg"
+              src={bonkLogo}
               alt="The logo for Bonk token, a cartoon shiba inu head."
               width="1000"
               height="1000"

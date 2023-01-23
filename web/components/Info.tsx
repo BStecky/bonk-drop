@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import shibe from "../public/assets/shibe.png";
 
 const Info = () => {
   return (
@@ -67,7 +68,7 @@ const Info = () => {
         <div className="py-4 w-full flex justify-center">
           <Image
             className="rounded-lg m-auto w-[150px] h-[150px] sm:w-[250px] sm:h-[250px] lg:w-[400px] lg:h-[400px] border-2 border-accentYellow"
-            src="/../public/assets/shibe.png"
+            src={shibe}
             alt="A AI generated 3d shiba inu"
             width="400"
             height="400"
