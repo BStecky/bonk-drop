@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { Program, AnchorProvider, BN } from "@project-serum/anchor";
 import * as anchor from "@project-serum/anchor";
 import { AnchorWallet } from "@solana/wallet-adapter-react";
+import { toast } from "react-toastify";
 import {
   ConfirmOptions,
   Connection,
@@ -147,8 +148,10 @@ const useDrop = create<UseDrop>((set, get) => ({
         })
         .rpc();
       console.log("account initialized tx: ", tx);
+      showAccountSuccessMessage();
       return true;
     } catch (e) {
+      showRpcErrorMessage(e);
       console.log("error: ", e);
       return false;
     }
@@ -181,8 +184,10 @@ const useDrop = create<UseDrop>((set, get) => ({
         })
         .rpc();
       console.log("bonk dropped tx: ", tx);
+      showBonkSuccessMessage();
       return true;
     } catch (e) {
+      showRpcErrorMessage(e);
       console.log("error: ", e);
       return false;
     }
@@ -211,5 +216,20 @@ const useDrop = create<UseDrop>((set, get) => ({
   },
   setLeaderboard: async () => {},
 }));
+
+function showRpcErrorMessage(e: any) {
+  toast.error(`Transaction failed: ${e?.message ? e.message : ""}`);
+}
+function showBonkSuccessMessage() {
+  toast.success("Bonk Dropped! Thankyou <3");
+}
+
+function showAccountSuccessMessage() {
+  toast.success("Account Initialized!");
+}
+
+function showRpcSuccessMessage() {
+  toast.success("Transaction confirmed!");
+}
 
 export default useDrop;

@@ -1,10 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "react-toastify/dist/ReactToastify.css";
 
 @layer base {
   body {
-    @apply text-accentYellow bg-complementaryBlue selection:bg-complementaryBlue transition-all ease-in-out;
+    @apply text-accentYellow bg-complementaryBlue/40 selection:bg-complementaryBlue transition-all ease-in-out;
     @apply text-sm md:text-base;
   }
 
@@ -27,5 +28,14 @@
 
   .btn-regular {
     @apply btn btn-sm md:btn-md lg:btn-lg text-white border-none hover:bg-complementaryPink bg-primaryOrange;
+  }
+
+  @media (min-width: 768px) {
+    .Toastify__toast-container--top-center {
+      top: 4em !important;
+    }
+  }
+  .Toastify__toast-container--top-center .Toastify__toast-theme--dark {
+    background-color: #181830;
   }
 }

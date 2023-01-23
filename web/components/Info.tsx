@@ -49,21 +49,24 @@ const Info = () => {
               used the hype to fundraise donations for charitible causes. Solana
               has really rallied around $BONK at the start of this year so I
               think it's the perfect time to raise some money in support of the
-              very mascot that helped get us here.
+              very mascot that helped get us here, dogs.
             </p>
           </div>
           <div className="p-4 ml-2 md:ml-5 lg:ml-10">
             {" "}
             <h1>How?</h1>
             <p className="pl-2">
-              Go and <Link href="/#hero">drop some bonk</Link> to get started
-              supporting dogs and the $BONK ecosystem today!
+              Go and{" "}
+              <Link href="/#hero" className="text-complementaryPink">
+                drop some bonk
+              </Link>{" "}
+              to get started supporting dogs and the $BONK ecosystem today!
             </p>
           </div>
         </div>
         <div className="py-4 w-full flex justify-center">
           <Image
-            className="rounded-lg m-auto w-[150px] h-[150px] sm:w-[250px] sm:h-[250px] lg:w-[400px] lg:h-[400px]"
+            className="rounded-lg m-auto w-[150px] h-[150px] sm:w-[250px] sm:h-[250px] lg:w-[400px] lg:h-[400px] border-2 border-accentYellow"
             src="/../public/assets/shibe.png"
             alt="A AI generated 3d shiba inu"
             width="400"

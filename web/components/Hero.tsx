@@ -5,6 +5,9 @@ import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 import Link from "next/link";
 import WalletMultiButtonStyled from "@/components/shared/WalletMultiButtonStyled";
+import { GiphyFetch } from "@giphy/js-fetch-api";
+import { Gif } from "@giphy/react-components";
+import { off } from "process";
 
 const Hero = () => {
   const { connection } = useConnection();
@@ -15,10 +18,13 @@ const Hero = () => {
   const [accountFetched, setAccountFetched] = useState(false);
   const [accountLoading, setAccountLoading] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
+  const [dropSuccess, setDropSuccess] = useState(false);
   const enterDrop = useDrop((state) => state?.enterDrop);
   const initAccount = useDrop((state) => state?.initAccount);
   const fetchAccount = useDrop((state) => state?.fetchAccount);
   const [dropAmount, setDropAmount] = useState<number>(100000);
+  const [gifUrl, setGifUrl] = useState("");
+  const gf = new GiphyFetch(process.env.NEXT_PUBLIC_GIPHY_API_KEY as string);
 
   async function updateAccount() {
     setAccountLoading(true);
@@ -31,12 +37,29 @@ const Hero = () => {
     }
   }
 
+  async function setGif() {
+    const offset = Math.floor(Math.random() * 100);
+    gf.search("shiba inu dog", {
+      sort: "relevant",
+      lang: "es",
+      limit: 1,
+      type: "gifs",
+      offset: offset,
+    }).then((result) => {
+      setGifUrl(result.data[0].images.fixed_height.url);
+    });
+  }
+
   useEffect(() => {
     async function init() {
       if (wallet?.publicKey) {
         await initState(wallet);
         await updateAccount();
+        await setGif();
         setWalletConnected(true);
+        // gf.random({ tag: "shiba inu dog cute", type: "gifs" }).then((result) =>
+        //   setGifUrl(result.data.images.fixed_height.url)
+        // );
       }
     }
     init();
@@ -96,10 +119,38 @@ const Hero = () => {
                         className="btn-regular"
                         onClick={async () => {
                           const result = await enterDrop(dropAmount);
+                          if (result) {
+                            setDropSuccess(true);
+                            setTimeout(() => {
+                              setDropSuccess(false);
+                              setGif();
+                            }, 15000); // 10 seconds
+                          }
                         }}
                       >
                         Drop Bonk!
                       </button>
+                    </div>
+                  )}
+                  {dropSuccess && gifUrl && (
+                    <div>
+                      <div className="p-2">
+                        <h3 className="text-accentYellow">
+                          Success! Thank you for dropping!
+                        </h3>
+                        <img
+                          src={gifUrl}
+                          className="w-full rounded-md border-2 border-accentYellow"
+                          alt="shiba inu dog"
+                        />
+                      </div>
+                      <a
+                        className="bg-primaryOrange text-white p-2 text-lg font-bold rounded-lg hover:bg-complementaryPink "
+                        target="_blank"
+                        href="https://twitter.com/intent/tweet?text=I just dropped some $BONK and helped real dogs! 50 Percent Burned, 50 Percent donated to dog shelters. Try it yourself -> www.bonkdrop.com"
+                      >
+                        Share to help more dogs!
+                      </a>
                     </div>
                   )}
                 </div>
@@ -108,6 +159,7 @@ const Hero = () => {
                   <WalletMultiButtonStyled />
                 </div>
               )}
+              <div></div>
             </div>
           </div>
         </div>
