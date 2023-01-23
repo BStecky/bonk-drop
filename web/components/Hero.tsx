@@ -70,7 +70,9 @@ const Hero = () => {
     <main>
       <section
         id="hero"
-        className="w-full h-screen min-h-[640px] min-w-[200px] overflow-auto m-auto max-w-[1240px]"
+        className={`w-full h-screen min-h-[800px] min-w-[380px] overflow-auto m-auto max-w-[1240px] ${
+          dropSuccess && gifUrl ? "h-auto w-auto md:h-screen md:w-full" : ""
+        }`}
       >
         <div className="bg-black/20 h-[80%] border-2 border-accentYellow rounded-xl py-10 m-10 grid grid-cols-1 md:grid-cols-2">
           <div className="flex justify-center text-center w-full md:p-4">
@@ -110,6 +112,7 @@ const Hero = () => {
                       className="btn-regular"
                       onClick={async () => {
                         const result = await initAccount();
+                        result && updateAccount();
                       }}
                     >
                       Init Account!
@@ -135,13 +138,13 @@ const Hero = () => {
                   )}
                   {dropSuccess && gifUrl && (
                     <div>
-                      <div className="p-2">
+                      <div className="p-2 flex flex-col">
                         <h3 className="text-accentYellow">
                           Success! Thank you for dropping!
                         </h3>
                         <img
                           src={gifUrl}
-                          className="w-full rounded-md border-2 border-accentYellow"
+                          className="w-full rounded-md border-2 border-accentYellow object-contain"
                           alt="shiba inu dog"
                         />
                       </div>
