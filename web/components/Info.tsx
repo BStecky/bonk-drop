@@ -79,8 +79,8 @@ const Info = () => {
               href="https://twitter.com/AimeSolana"
             >
               <p className="text-center rounded-md hover:bg-backgroundPrimary duration-150 ease-in-out">
-                I'll be tweeting a donation any time USDC is moved out of the
-                treasury wallet! 🐕
+                I&apos;ll be tweeting a donation any time USDC is moved out of
+                the treasury wallet! 🐕
               </p>
             </a>
           </div>
