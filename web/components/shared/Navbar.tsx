@@ -11,7 +11,7 @@ const Navbar: FC = () => {
       <div className="navbar bg-black/20 text-accentYellow" data-theme="luxury">
         <div className="flex-1">
           <Link to="hero" smooth>
-            <a className="btn btn-ghost normal-case text-xl">Bonk Drop!</a>
+            <a className="btn btn-ghost text-xl normal-case">Bonk Drop!</a>
           </Link>
         </div>
         <div className="flex-none">
