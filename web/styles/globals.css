@@ -5,7 +5,7 @@
 
 @layer base {
   body {
-    @apply text-accentYellow bg-complementaryBlue/40 selection:bg-complementaryBlue transition-all ease-in-out;
+    @apply text-accentYellow bg-backgroundPrimary selection:bg-complementaryBlue transition-all ease-in-out;
     @apply text-sm md:text-base;
   }
 
@@ -15,7 +15,7 @@
   h4,
   h5,
   h6 {
-    @apply font-bold text-primaryOrange;
+    @apply font-bold text-accentYellow;
   }
 
   h1 {

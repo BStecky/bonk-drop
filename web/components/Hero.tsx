@@ -89,7 +89,7 @@ const Hero = () => {
           dropSuccess && gifUrl ? "h-auto w-auto md:h-screen md:w-full" : ""
         }`}
       >
-        <div className="bg-black/20 h-[80%] border-2 border-accentYellow rounded-xl py-10 m-10 grid grid-cols-1 md:grid-cols-2">
+        <div className="bg-complementaryBlue/80 h-[80%] border-2 border-primaryOrange rounded-xl py-10 m-10 grid grid-cols-1 md:grid-cols-2">
           <div className="flex justify-center text-center w-full md:p-4">
             <Image
               className="rounded-[50%] m-auto w-[150px] h-[150px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px]"
@@ -101,7 +101,7 @@ const Hero = () => {
           </div>
           <div className="text-center p-4 w-full h-full flex flex-col items-center justify-center">
             <div className="py-4 max-w-[500px]">
-              <h1 className="">Bonk Drop</h1>
+              <h1 className="text-accentYellow underline">Bonk Drop!</h1>
               <p className="py-4">
                 Drop some $BONK to benefit actual Dogs as well as the $BONK
                 ecosystem!
@@ -117,7 +117,7 @@ const Hero = () => {
                 min="0"
                 max="1000000"
                 value={dropAmount}
-                className="range"
+                className="range bg-[#F5F5DC]"
                 onChange={(e) => setDropAmount(Number(e.target.value))}
               />
             ) : (
@@ -126,7 +126,7 @@ const Hero = () => {
                 min="1000000"
                 max="100000000"
                 value={dropAmount}
-                className="range"
+                className="range bg-[#F5F5DC]"
                 onChange={(e) => setDropAmount(Number(e.target.value))}
               />
             )}

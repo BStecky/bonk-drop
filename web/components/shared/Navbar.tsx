@@ -7,11 +7,14 @@ import WalletMultiButtonStyled from "./WalletMultiButtonStyled";
 
 const Navbar: FC = () => {
   return (
-    <div className="border-y-2 border-y-accentYellow">
-      <div className="navbar bg-black/20 text-accentYellow" data-theme="luxury">
+    <div className="border-y-2 border-y-primaryOrange">
+      <div
+        className="navbar bg-complementaryBlue text-accentYellow"
+        data-theme="luxury"
+      >
         <div className="flex-1">
           <Link to="hero" smooth>
-            <a className="btn btn-ghost text-xl normal-case">Bonk Drop!</a>
+            <a className="btn btn-ghost text-xl normal-case ">Bonk Drop!</a>
           </Link>
         </div>
         <div className="flex-none">

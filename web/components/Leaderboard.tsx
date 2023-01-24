@@ -9,8 +9,8 @@ const Leaderboard = () => {
       id="leaderboard"
       className="w-full h-screen min-h-[1150px] min-w-[200px] overflow-auto m-auto max-w-[1240px]"
     >
-      <div className="bg-[#242933] h-[80%] border-2 border-accentYellow rounded-xl m-10 overflow-x-auto">
-        <h1 className="text-center p-4 underline bg-[#242933]">
+      <div className="bg-[#242933] h-[80%] border-2 border-primaryOrange rounded-xl m-10 overflow-x-auto">
+        <h1 className="text-center p-4 underline bg-[#242933] text-accentYellow">
           Bonk Drop Leaderboards!
         </h1>
         <table className="table w-full">
