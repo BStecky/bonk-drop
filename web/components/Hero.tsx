@@ -192,7 +192,7 @@ const Hero = () => {
                             }
                           }}
                         >
-                          Drop Bonk!
+                          Drop Bonk - to see what happens!
                         </button>
                       )}
                     </div>
