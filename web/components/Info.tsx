@@ -7,7 +7,7 @@ const Info = () => {
   return (
     <section
       id="info"
-      className="h-auto w-auto lg:w-full lg:h-screen min-h-[1250px] min-w-[380px] overflow-auto m-auto max-w-[1240px]"
+      className="h-auto w-auto lg:w-full lg:h-screen min-h-[1300px] min-w-[380px] overflow-auto m-auto max-w-[1240px]"
     >
       <div className="bg-complementaryBlue/80 h-[80%] border-2 border-primaryOrange rounded-xl py-10 m-10 grid grid-cols-1 md:grid-cols-2">
         <div className="flex flex-col justify-center w-full">
@@ -70,10 +70,12 @@ const Info = () => {
             </p>
           </div>
           <div className="p-4 ml-2 md:ml-5 lg:ml-10 ">
-            <h2 className="underline">Transparency</h2>
-            <p className="text-center">Program ID address: </p>
+            <h2 className="underline text-center">Transparency</h2>
             <p className="text-center">
-              Treasury address: BoNkLayXFhzKh8qDz7ux4BGC7jfUxA8HZ4ieCwtHenSU
+              Program ID: 3BM5STVPUNwaJzsA7MoCU3ASNuj51tvad5ZycGbx3LNv
+            </p>
+            <p className="text-center">
+              Treasury: BoNkLayXFhzKh8qDz7ux4BGC7jfUxA8HZ4ieCwtHenSU
             </p>
             <a
               target="_blank"
