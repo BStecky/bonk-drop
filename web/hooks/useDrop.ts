@@ -72,11 +72,11 @@ const useDrop = create<UseDrop>((set, get) => ({
     );
     //My devnet token
     const bonkToken = new PublicKey(
-      "8JR9axZDuZcUHRoLxbrVgju7EJYwKjDfMLDxqrYCmnKL"
+      "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
     );
     const treasuryAddress = await getAssociatedTokenAddress(
       bonkToken,
-      new PublicKey("AimefnHrwr7Rmx8Bbm5JVcKgiiJ71jQs2PpChQ91t1Xu")
+      new PublicKey("BoNkLayXFhzKh8qDz7ux4BGC7jfUxA8HZ4ieCwtHenSU")
     );
     const [dropAccount, dropBump] = await PublicKey.findProgramAddressSync(
       [wallet.publicKey.toBuffer(), Buffer.from("user")],

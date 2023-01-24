@@ -1,5 +1,6 @@
 [features]
 seeds = false
+
 [programs.devnet]
 bonk_drop = "3BM5STVPUNwaJzsA7MoCU3ASNuj51tvad5ZycGbx3LNv"
 
@@ -9,13 +10,14 @@ bonk_drop = "3BM5STVPUNwaJzsA7MoCU3ASNuj51tvad5ZycGbx3LNv"
 [registry]
 url = "https://anchor.projectserum.com"
 
-# [provider]
-# cluster = "devnet"
-# wallet = "~/programs/dog.json"
 
 [provider]
 cluster = "mainnet"
 wallet = "~/programs/dog.json"
+
+# [provider]
+# cluster = "devnet"
+# wallet = "~/programs/dog.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
