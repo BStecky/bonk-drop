@@ -36,6 +36,7 @@ export default function Home() {
       <Hero />
       <Info />
       <Leaderboard />
+      <Footer />
       <ToastContainer theme="dark" position="top-center" pauseOnHover />
     </main>
   );

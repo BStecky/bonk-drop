@@ -22,31 +22,39 @@ module.exports = {
 
         // ...
       },
-      daisyui: {
-        themes: [
-          {
-            mytheme: {
-              primary: "#e043be",
+    },
+    daisyui: {
+      styled: true,
+      themes: [
+        "luxury",
+        {
+          mytheme: {
+            primary: "#f18d07",
 
-              secondary: "#f4be53",
+            secondary: "#f18d07",
 
-              accent: "#3cd190",
+            accent: "#f18d07",
 
-              neutral: "#1D1C26",
+            neutral: "#f18d07",
 
-              "base-100": "#2A2E3C",
+            "base-100": "#f18d07",
 
-              info: "#96C0DF",
+            info: "#f18d07",
 
-              success: "#17734B",
+            success: "#f18d07",
 
-              warning: "#D5AF07",
+            warning: "#f18d07",
 
-              error: "#F85C54",
-            },
+            error: "#f18d07",
           },
-        ],
-      },
+        },
+      ],
+      base: true,
+      utils: true,
+      logs: true,
+      rtl: true,
+      prefix: "",
+      darkTheme: "black",
     },
   },
   plugins: [require("daisyui")],

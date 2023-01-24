@@ -3,12 +3,11 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import React, { FC, useCallback, useState, useEffect } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
+import { Link } from "react-scroll";
 import WalletMultiButtonStyled from "@/components/shared/WalletMultiButtonStyled";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import bonkLogo from "../public/assets/bonkToken.jpeg";
-import { Gif } from "@giphy/react-components";
-import { off } from "process";
 
 const Hero = () => {
   const { connection } = useConnection();
@@ -107,7 +106,7 @@ const Hero = () => {
                 Drop some $BONK to benefit actual Dogs as well as the $BONK
                 ecosystem!
               </p>
-              <Link href="/#info">
+              <Link to="info" smooth>
                 <button className="btn-regular btn-sm">Learn More!</button>
               </Link>
             </div>
@@ -136,29 +135,27 @@ const Hero = () => {
               <h3 className="text-accentYellow p-2">
                 Drop Amount: {dropAmount.toLocaleString()}
               </h3>
-              {!dropSuccess && (
-                <label className="swap swap-flip text-4xl p-1">
-                  <input type="checkbox" />
-                  <div
-                    className="swap-on"
-                    onClick={() => {
-                      setWhaleMode(false);
-                      setDropAmount(100000);
-                    }}
-                  >
-                    🐋
-                  </div>
-                  <div
-                    className="swap-off"
-                    onClick={() => {
-                      setWhaleMode(true);
-                      setDropAmount(1000000);
-                    }}
-                  >
-                    🐕
-                  </div>
-                </label>
-              )}
+              <label className="swap swap-flip text-4xl p-1">
+                <input type="checkbox" />
+                <div
+                  className="swap-on"
+                  onClick={() => {
+                    setWhaleMode(false);
+                    setDropAmount(100000);
+                  }}
+                >
+                  🐋
+                </div>
+                <div
+                  className="swap-off hover:scale-110 duration-100 ease-in-out"
+                  onClick={() => {
+                    setWhaleMode(true);
+                    setDropAmount(1000000);
+                  }}
+                >
+                  🐕
+                </div>
+              </label>
             </div>
 
             <div className="py-4">
@@ -187,6 +184,7 @@ const Hero = () => {
                               setTimeout(() => {
                                 setDropSuccess(false);
                                 setGif();
+                                console.log("whale mode: ", whaleMode);
                                 if (whaleMode) {
                                   setWhaleGif();
                                 }
