@@ -72,7 +72,9 @@ const Info = () => {
           <div className="p-4 ml-2 md:ml-5 lg:ml-10 ">
             <h2 className="underline">Transparency</h2>
             <p className="text-center">Program ID address: </p>
-            <p className="text-center">Treasury address: </p>
+            <p className="text-center">
+              Treasury address: BoNkLayXFhzKh8qDz7ux4BGC7jfUxA8HZ4ieCwtHenSU
+            </p>
             <a
               target="_blank"
               rel="noopener noreferrer"

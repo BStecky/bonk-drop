@@ -22,9 +22,10 @@ describe("bonk-drop", async () => {
   const tokenMint = new PublicKey(
     "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
   );
-  const devnetTokenMint = new PublicKey(
-    "8JR9axZDuZcUHRoLxbrVgju7EJYwKjDfMLDxqrYCmnKL"
-  );
+  // const devnetTokenMint = new PublicKey(
+  //   "8JR9axZDuZcUHRoLxbrVgju7EJYwKjDfMLDxqrYCmnKL"
+  // );
+
   const [treasury, treasuryBump] = await findProgramAddressSync(
     [Buffer.from("treasury_config")],
     program.programId
@@ -34,11 +35,11 @@ describe("bonk-drop", async () => {
     program.programId
   );
   const treasuryAddress = await getAssociatedTokenAddress(
-    devnetTokenMint,
-    new PublicKey("AimefnHrwr7Rmx8Bbm5JVcKgiiJ71jQs2PpChQ91t1Xu")
+    tokenMint,
+    new PublicKey("BoNkLayXFhzKh8qDz7ux4BGC7jfUxA8HZ4ieCwtHenSU")
   );
   const userTokenAccount = await getAssociatedTokenAddress(
-    devnetTokenMint,
+    tokenMint,
     provider.wallet.publicKey
   );
 
@@ -75,25 +76,25 @@ describe("bonk-drop", async () => {
 
   it("drop bonk", async () => {
     // Bonk it
-    try {
-      const tx = await program.methods
-        .dropBonk(new BN(1000))
-        .accounts({
-          treasury: treasury,
-          treasuryAddress: treasuryAddress,
-          authority: authority,
-          userTokenAccount: userTokenAccount,
-          dropAccount: dropAccount,
-          tokenMint: devnetTokenMint,
-          systemProgram: anchor.web3.SystemProgram.programId,
-          tokenProgram: TOKEN_PROGRAM_ID,
-          associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-          rent: anchor.web3.SYSVAR_RENT_PUBKEY,
-        })
-        .rpc();
-      console.log("bonk dropped: ", tx);
-    } catch (e) {
-      console.log("error: ", e);
-    }
+    // try {
+    //   const tx = await program.methods
+    //     .dropBonk(new BN(1000))
+    //     .accounts({
+    //       treasury: treasury,
+    //       treasuryAddress: treasuryAddress,
+    //       authority: authority,
+    //       userTokenAccount: userTokenAccount,
+    //       dropAccount: dropAccount,
+    //       tokenMint: devnetTokenMint,
+    //       systemProgram: anchor.web3.SystemProgram.programId,
+    //       tokenProgram: TOKEN_PROGRAM_ID,
+    //       associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
+    //       rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+    //     })
+    //     .rpc();
+    //   console.log("bonk dropped: ", tx);
+    // } catch (e) {
+    //   console.log("error: ", e);
+    // }
   });
 });
