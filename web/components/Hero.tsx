@@ -179,7 +179,7 @@ const Hero = () => {
                       </button>
                       <h2>Or</h2>
                       <h3 className="p-1">
-                        Drop without an account! You'll still get a surprise.
+                        Drop without an account! You will still get a surprise.
                       </h3>
                       <div>
                         {!dropSuccess && (
