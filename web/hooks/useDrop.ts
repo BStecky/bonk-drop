@@ -48,6 +48,7 @@ interface UseDrop {
   initAccount: () => Promise<boolean>;
   fetchAccount: () => Promise<DropAccount | any>;
   enterDrop: (dropAmount: number) => Promise<boolean>;
+  enterDropNoAccount: (dropAmount: number) => Promise<boolean>;
 }
 const useDrop = create<UseDrop>((set, get) => ({
   state: {} as WebState,
@@ -176,6 +177,40 @@ const useDrop = create<UseDrop>((set, get) => ({
           authority: user.publicKey,
           userTokenAccount: userTokenAccount,
           dropAccount: userDropAccount,
+          tokenMint: mint,
+          systemProgram: anchor.web3.SystemProgram.programId,
+          tokenProgram: TOKEN_PROGRAM_ID,
+          associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
+          rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+        })
+        .rpc();
+      console.log("bonk dropped tx: ", tx);
+      showBonkSuccessMessage();
+      return true;
+    } catch (e) {
+      showRpcErrorMessage(e);
+      console.log("error: ", e);
+      return false;
+    }
+  },
+  enterDropNoAccount: async (dropAmount: number) => {
+    const program = get().state.program;
+    const user = get().state.user;
+    const treasury = get().state.treasury;
+    const treasuryAddress = get().state.treasuryAddress;
+    const mint = get().state.bonkToken;
+    const userTokenAccount = await getAssociatedTokenAddress(
+      mint,
+      user.publicKey
+    );
+    try {
+      const tx = await program.methods
+        .dropBonkNoAccount(new BN(dropAmount))
+        .accounts({
+          treasury: treasury,
+          treasuryAddress: treasuryAddress,
+          authority: user.publicKey,
+          userTokenAccount: userTokenAccount,
           tokenMint: mint,
           systemProgram: anchor.web3.SystemProgram.programId,
           tokenProgram: TOKEN_PROGRAM_ID,

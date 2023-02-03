@@ -20,6 +20,7 @@ const Hero = () => {
   const [walletConnected, setWalletConnected] = useState(false);
   const [dropSuccess, setDropSuccess] = useState(false);
   const enterDrop = useDrop((state) => state?.enterDrop);
+  const enterDropNoAccount = useDrop((state) => state?.enterDropNoAccount);
   const initAccount = useDrop((state) => state?.initAccount);
   const fetchAccount = useDrop((state) => state?.fetchAccount);
   const [dropAmount, setDropAmount] = useState<number>(100000);
@@ -161,16 +162,52 @@ const Hero = () => {
             <div className="py-4">
               {wallet?.publicKey ? (
                 <div>
-                  {accountFetched == false ? (
-                    <button
-                      className="btn-regular"
-                      onClick={async () => {
-                        const result = await initAccount();
-                        result && updateAccount();
-                      }}
-                    >
-                      Init Account!
-                    </button>
+                  {accountFetched == false && !dropSuccess ? (
+                    <div className="bg-complementaryBlue rounded-md p-2 border-2 border-accentYellow">
+                      <h3 className="p-1">
+                        Initialize a Drop account to be eligible for the
+                        leaderboards!
+                      </h3>
+                      <button
+                        className="btn-regular"
+                        onClick={async () => {
+                          const result = await initAccount();
+                          result && updateAccount();
+                        }}
+                      >
+                        Init Account!
+                      </button>
+                      <h2>Or</h2>
+                      <h3 className="p-1">
+                        Drop without an account! You'll still get a surprise.
+                      </h3>
+                      <div>
+                        {!dropSuccess && (
+                          <button
+                            className="btn-regular"
+                            onClick={async () => {
+                              console.log("whale mode is: ", whaleMode);
+                              const result = await enterDropNoAccount(
+                                dropAmount
+                              );
+                              if (result) {
+                                setDropSuccess(true);
+                                setTimeout(() => {
+                                  setDropSuccess(false);
+                                  setGif();
+                                  console.log("whale mode: ", whaleMode);
+                                  if (whaleMode) {
+                                    setWhaleGif();
+                                  }
+                                }, 10000); // 15 seconds
+                              }
+                            }}
+                          >
+                            Drop Bonk
+                          </button>
+                        )}
+                      </div>
+                    </div>
                   ) : (
                     <div>
                       {!dropSuccess && (

@@ -1,8 +1,7 @@
-use std::char::MAX;
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::pubkey;
 use anchor_spl::associated_token::AssociatedToken;
-use anchor_spl::token::{self, Burn, Mint, SetAuthority, Token, TokenAccount, Transfer};
+use anchor_spl::token::{self, Burn, Mint, Token, TokenAccount, Transfer};
 
 declare_id!("3BM5STVPUNwaJzsA7MoCU3ASNuj51tvad5ZycGbx3LNv");
 
@@ -32,6 +31,15 @@ pub mod bonk_drop {
         let donate_amount = amount_parsed / 2 as f64; //50% to treasury wallet to be donated
         let user_bonk_account = &mut ctx.accounts.drop_account;
         user_bonk_account.total_dropped += amount;
+        token::transfer(ctx.accounts.transfer_ctx(), donate_amount as u64)?;
+        token::burn(ctx.accounts.burn_token_ctx(), burn_amount as u64)?;
+        Ok(())
+    }
+
+    pub fn drop_bonk_no_account(ctx: Context<DropBonkNoAccount>, amount: u64) -> Result<()> {
+        let amount_parsed = ((amount as f64) * 1e5) as f64; //Bonk is a 5 decimal token
+        let burn_amount = amount_parsed / 2 as f64; // 50% burned
+        let donate_amount = amount_parsed / 2 as f64; //50% to treasury wallet to be donated
         token::transfer(ctx.accounts.transfer_ctx(), donate_amount as u64)?;
         token::burn(ctx.accounts.burn_token_ctx(), burn_amount as u64)?;
         Ok(())
@@ -106,6 +114,48 @@ impl<'info> DropBonk<'info> {
         )
     }
 }
+
+#[derive(Accounts)]
+pub struct DropBonkNoAccount<'info> {
+    #[account (seeds = [b"treasury_config".as_ref()], bump = treasury.bump)]
+    pub treasury: Account<'info, Treasury>,
+    /// CHECK: Address is checked with the initialized address on Treasury account.
+    #[account(mut, address = treasury.treasury_address)]
+    pub treasury_address: UncheckedAccount<'info>,
+    #[account(mut)]
+    pub authority: Signer<'info>,
+    #[account(mut)]
+    pub user_token_account: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub token_mint: Account<'info, Mint>,
+    pub system_program: Program<'info, System>,
+    pub token_program: Program<'info, Token>,
+    pub associated_token_program: Program<'info, AssociatedToken>,
+    pub rent: Sysvar<'info, Rent>,
+}
+impl<'info> DropBonkNoAccount<'info> {
+    pub fn burn_token_ctx(&self) -> CpiContext<'_, '_, '_, 'info, Burn<'info>> {
+        CpiContext::new(
+            self.token_program.to_account_info(),
+            Burn {
+                mint: self.token_mint.to_account_info(),
+                from: self.user_token_account.to_account_info(),
+                authority: self.authority.to_account_info(),
+            },
+        )
+    }
+    pub fn transfer_ctx(&self) -> CpiContext<'_, '_, '_, 'info, Transfer<'info>> {
+        CpiContext::new(
+            self.token_program.to_account_info(),
+            Transfer {
+                from: self.user_token_account.to_account_info(),
+                to: self.treasury_address.to_account_info(),
+                authority: self.authority.to_account_info(),
+            },
+        )
+    }
+}
+
 
 const DISCRIMINATOR_LENGTH: usize = 8;
 const PUBKEY_LENGTH: usize = 32;
