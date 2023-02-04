@@ -61,7 +61,7 @@ describe("bonk-drop", async () => {
   });
 
   it("Create Drop Account", async () => {
-    // Only Initialize Once
+    // Only Initialize Once per wallet
     // const tx = await program.methods
     //   .createAccount()
     //   .accounts({

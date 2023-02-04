@@ -8,6 +8,7 @@ import { Link } from "react-scroll";
 import WalletMultiButtonStyled from "@/components/shared/WalletMultiButtonStyled";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import bonkLogo from "../public/assets/bonkToken.jpeg";
+import { getPriceData } from "@/pages/api/priceapi";
 
 const Hero = () => {
   const { connection } = useConnection();
@@ -28,9 +29,12 @@ const Hero = () => {
   const [whaleGifUrl, setWhaleGifUrl] = useState("");
   const gf = new GiphyFetch(process.env.NEXT_PUBLIC_GIPHY_API_KEY as string);
   const [whaleMode, setWhaleMode] = useState(false);
+  const [bonkPrice, setBonkPrice] = useState<number>(0);
 
   async function updateAccount() {
     setAccountLoading(true);
+    const bonkData = await getPriceData();
+    setBonkPrice(bonkData);
     const account = await fetchAccount();
     if (account) {
       setAccountFetched(true);
@@ -134,7 +138,8 @@ const Hero = () => {
 
             <div className="flex items-center text-center">
               <h3 className="text-accentYellow p-2">
-                Drop Amount: {dropAmount.toLocaleString()}
+                Amount: ${(bonkPrice * dropAmount).toLocaleString()} (
+                {dropAmount.toLocaleString()} BONK)
               </h3>
               <label className="swap swap-flip text-4xl p-1">
                 <input type="checkbox" />

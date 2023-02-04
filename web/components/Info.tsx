@@ -28,9 +28,9 @@ const Info = () => {
             {" "}
             <h1>What? 🐕</h1>
             <p className="pl-2">
-              Bonk Drop is a project made during the January 2023 Solana
-              Sandstorm Hackathon in support of No-Kill Dog Shelters and the
-              $BONK Ecosystem.
+              Bonk Drop is a project started during the January 2023 Solana
+              Sandstorm Hackathon, and continued in the Encode Hackathon. Its
+              made in support of No-Kill Dog Shelters and the $BONK Ecosystem.
             </p>
             <p className="p-2">
               50% of the $BONK dropped on the website is burned, and 50% is
