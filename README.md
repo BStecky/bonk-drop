@@ -47,6 +47,8 @@ Also update the treasury address here to the address you would like 50% of token
 - `yarn install`
 - `yarn run dev`
 
-### Conclusions
+## Conclusions
 
-- If you are looking at this repo and are trying to learn / need help, feel free to reach out!
+I had a lot of fun building this project! I started it in January of 2023 for the Solana Sandstorm hackathon and continued with some improvements for the Encode Club Hackathon. Thanks for taking the time to "read me" and take care!
+
+> If you are looking at this repo and are trying to learn / need help, feel free to reach out!
